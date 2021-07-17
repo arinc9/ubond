@@ -517,42 +517,6 @@ int set_mptcp_options(int sockfd, int level)
     log_warnx("tcp", "set mptcp options on fd %d", sockfd);
     if (sockfd != 0 && level == IPPROTO_TCP) {
 #ifdef MPTCP_SOCK_SETUP
-        int enable = 1;
-        int ret = setsockopt(sockfd, level, MPTCP_ENABLED, &enable, sizeof(enable));
-
-        if (ret < 0) {
-            fprintf(stderr, "setsockopt: MPTCP_ENABLED error %s!\n", strerror(errno));
-            fflush(stderr);
-            //return ret;
-        }
-
-        char pathmanager[] = "fullmesh";
-        ret = setsockopt(sockfd, level, MPTCP_PATH_MANAGER, pathmanager, sizeof(pathmanager));
-
-        if (ret < 0) {
-            fprintf(stderr, "setsockopt: MPTCP_PATH_MANAGER error %s!\n", strerror(errno));
-            fflush(stderr);
-            return ret;
-        }
-
-        char scheduler[] = "default";
-        ret = setsockopt(sockfd, level, MPTCP_SCHEDULER, scheduler, sizeof(scheduler));
-
-        if (ret < 0) {
-            fprintf(stderr, "setsockopt: MPTCP_SCHEDULER error %s!\n", strerror(errno));
-            fflush(stderr);
-            return ret;
-        }
-
-        int val = MPTCP_INFO_FLAG_SAVE_MASTER;
-        ret = setsockopt(sockfd, level, MPTCP_INFO, &val, sizeof(val));
-
-        if (ret < 0) {
-            fprintf(stderr, "setsockopt: MPTCP_INFO error %s!\n", strerror(errno));
-            fflush(stderr);
-        }
-
-        return ret;
 #endif
     }
 
