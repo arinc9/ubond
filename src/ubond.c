@@ -1226,7 +1226,7 @@ int ubond_rtun_bind(ubond_tunnel_t* t, int fd, int socktype)
 
     if (*t->binddev) {
         memset(&ifr, 0, sizeof(ifr));
-        snprintf(ifr.ifr_name, sizeof(ifr.ifr_name) - 1, t->binddev);
+        strncpy(ifr.ifr_name, sizeof(ifr.ifr_name) - 1, t->binddev);
         if (setsockopt(fd, SOL_SOCKET, SO_BINDTODEVICE, (void*)&ifr, sizeof(ifr)) < 0) {
             log_warn(NULL, "failed to bind on interface %s", t->binddev);
         }
